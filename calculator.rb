@@ -17,9 +17,6 @@ def percent_difference()
   # puts "24h change is " + $percent_diff.round(1).to_s + "%"
 end
 
-# percent_difference()
-
-
 def send_or_not()
   if File.zero?($read_ping_history) 
     File.write('ping_history.txt', (Time.now.utc - 86400))
@@ -34,7 +31,3 @@ def send_or_not()
 end
 
 send_or_not
-
-
-
-
