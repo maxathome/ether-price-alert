@@ -25,24 +25,22 @@ end
 
 def send_or_not()
   loop do
-  if File.readlines("ping_history.txt").grep(/monitor/).size == 0 
-     $write_ping_history.puts Time.now.utc
-     $write_ping_history.close
-     puts "This is the file check: " + $read_ping_history.read
-    
-
-  elsif $read_ping_history.read < (Time.now.utc - 86400).to_s 
-     puts "I'm not gonna write anything because I did less than 24 hours ago"
-     break
-  elsif $percent_diff >= 10
-     puts 'Boys, Ether prices are changing fast. Up by '+ $percent_diff.to_s + ' in last 24 hours.'
-     $write_ping_history.puts Time.now.utc
-     # $write_ping_history.close
-     break
-  else
-     puts 'Ether is stable, boys.'
-     break
-  end
+    if File.readlines("ping_history.txt").grep(/monitor/).size == 0
+      File.write('ping_history.txt', Time.now.utc)
+      puts "This is the file check: " + $read_ping_history.read
+      break
+    elsif $read_ping_history.read < (Time.now.utc - 86400).to_s
+       puts "I'm not gonna write anything because I did less than 24 hours ago"
+       break
+    elsif $percent_diff >= 10
+       puts 'Boys, Ether prices are changing fast. Up by '+ $percent_diff.to_s + ' in last 24 hours.'
+       $write_ping_history.puts Time.now.utc
+       break
+       # $write_ping_history.close
+    else
+       puts 'Ether is stable, boys.'
+       break
+    end
   end
 end
 
@@ -51,5 +49,3 @@ send_or_not
 
 # read_ping_history = File.open('ping_history.txt', &:gets)
 # puts read_ping_history.read
-
-
