@@ -33,7 +33,7 @@ end
 
 def post_if_flag_set
   if $send_flag == true
-    post_to_slack
+    post_to_slack($percent_diff_to_s)
   end
 end
 
