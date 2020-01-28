@@ -1,9 +1,10 @@
 require_relative 'ether_prices'
 require_relative 'slack'
 require 'time'
+require 'redis'
 
+$redis = Redis.new(host: ENV['REDIS_HOST'], port: ENV['REDIS_PORT'], password: ENV['REDIS_PASSWORD'], user: ENV['REDIS_USER'])
 $percent_diff = 0
-$read_ping_history = File.open('ping_history.txt', 'r')
 $send_flag = false 
 
 def percent_difference(current_price, past_price)
@@ -17,13 +18,13 @@ def percent_difference(current_price, past_price)
 end
 
 def set_send_flag
-  if File.zero?($read_ping_history) 
-    File.write('ping_history.txt', (Time.now.utc - 86400))
-  elsif Time.parse(File.read('ping_history.txt')) - (Time.now.utc - 86400) >= 86000 
+  if $redis.get("lastrun") == nil  
+    $redis.set("lastrun", (Time.now.utc - 86400))
+  elsif Time.parse($redis.get("lastrun")) - (Time.now.utc - 86400) >= 86000 
     puts "I'm not gonna write anything because I did less than 24 hours ago"
-  elsif $percent_diff >= 10
+  elsif $percent_diff >= ENV['ALERT_THRESHOLD'].to_i
     puts 'Boys, Ether prices are changing fast. Up by '+ $percent_diff.to_s + ' in last 24 hours.'
-    File.write('ping_history.txt', (Time.now.utc))
+    $redis.set("lastrun", Time.now.utc)
     $send_flag = true
   else
     puts 'Ether is stable, boys.' 
@@ -32,7 +33,7 @@ end
 
 def post_if_flag_set
   if $send_flag == true
-    post_to_slack
+    post_to_slack($percent_diff.to_s, current_price.to_s)
   end
 end
 
