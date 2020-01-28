@@ -2,7 +2,7 @@ require_relative 'ether_prices'
 require_relative 'slack'
 require 'time'
 
-$percent_diff = 11
+$percent_diff = 0
 $read_ping_history = File.open('ping_history.txt', 'r')
 $send_flag = false 
 
@@ -36,6 +36,6 @@ def post_if_flag_set
   end
 end
 
-# percent_difference(get_price_now, get_price_24hr) 
+percent_difference(get_price_now, get_price_24hr) 
 set_send_flag
 post_if_flag_set  
