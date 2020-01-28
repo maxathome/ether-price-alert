@@ -23,4 +23,3 @@ def post_to_slack(percent)
   puts response.body
 end
 
-post_to_slack("12")
