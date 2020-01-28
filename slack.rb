@@ -3,13 +3,13 @@ require 'uri'
 require 'json'
 require 'dotenv/load'
 
-def post_to_slack
+def post_to_slack(percent)
   url = ENV['SLACK_HOOK']
   uri = URI(url)
   request = Net::HTTP::Post.new(uri)
   request.content_type = "application/json"
   request.body = JSON.dump({
-   "text" => "Shit is moving 10%"
+   "text" => ":loud_sound: Hey <!channel>! Etherium has moved "+ percent + "% in the last 24 hours! :loud_sound:"
   })
 
   req_options = {
@@ -23,3 +23,4 @@ def post_to_slack
   puts response.body
 end
 
+post_to_slack("12")
