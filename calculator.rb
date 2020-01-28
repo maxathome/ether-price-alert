@@ -22,7 +22,7 @@ def set_send_flag
     $redis.set("lastrun", (Time.now.utc - 86400))
   elsif Time.parse($redis.get("lastrun")) - (Time.now.utc - 86400) >= 86000 
     puts "I'm not gonna write anything because I did less than 24 hours ago"
-  elsif $percent_diff >= 10
+  elsif $percent_diff >= ENV['ALERT_THRESHOLD']
     puts 'Boys, Ether prices are changing fast. Up by '+ $percent_diff.to_s + ' in last 24 hours.'
     $redis.set("lastrun", Time.now.utc)
     $send_flag = true
