@@ -22,6 +22,3 @@ def post_to_slack(percent, current_price)
   puts response.code
   puts response.body
 end
-
-
-post_to_slack("12", "174.2")
