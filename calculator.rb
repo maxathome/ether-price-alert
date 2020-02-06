@@ -1,9 +1,7 @@
 require_relative 'ether_prices'
 require_relative 'slack'
 require_relative 'config/initializers/redis.rb'
-require 'redis'
 
-# $redis = Redis.new(url: ENV['REDIS_URL'])
 $percent_diff = get_price_24hr.round(1)
 $price_now = get_price_now
 $send_flag = false 
