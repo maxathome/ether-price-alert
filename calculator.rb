@@ -6,11 +6,13 @@ require 'redis'
 
 # $redis = Redis.new(url: ENV['REDIS_URL'])
 $percent_diff = 0
+$price_now = 0
 $send_flag = false 
 
 def percent_difference(current_price, past_price)
   puts "Price Now: " + current_price.to_s
   puts "Past Price: " + past_price.to_s
+  $price_now = current_price 
   difference = (current_price - past_price)
   average = (current_price + past_price) / 2
   unrounded_percent_diff = (difference.abs() / average)* 100
@@ -34,7 +36,7 @@ end
 
 def post_if_flag_set
   if $send_flag == true
-    post_to_slack($percent_diff.to_s, current_price.to_s)
+    post_to_slack($percent_diff.to_s, $price_now.to_s)
   end
 end
 
