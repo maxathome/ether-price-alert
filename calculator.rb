@@ -27,7 +27,6 @@ def set_send_flag
     puts 'Boys, Ether prices are changing fast. Up by '+ $percent_diff.to_s + ' in last 24 hours.'
     $redis.setex("lastrun", 86400, true)
     $send_flag = true
-    puts $redis.get("lastrun")
   else
     puts 'Ether is stable, boys.' 
   end
