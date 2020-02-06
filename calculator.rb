@@ -3,7 +3,7 @@ require_relative 'slack'
 require 'time'
 require 'redis'
 
-$redis = Redis.new(host: ENV['REDIS_HOST'], port: ENV['REDIS_PORT'], password: ENV['REDIS_PASSWORD'], user: ENV['REDIS_USER'])
+$redis = Redis.new(url: ENV['REDIS_URL'])
 $percent_diff = 0
 $send_flag = false 
 
