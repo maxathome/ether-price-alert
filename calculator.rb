@@ -1,7 +1,6 @@
 require_relative 'ether_prices'
 require_relative 'slack'
 require_relative 'config/initializers/redis.rb'
-require 'time'
 require 'redis'
 
 # $redis = Redis.new(url: ENV['REDIS_URL'])
