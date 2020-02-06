@@ -21,14 +21,13 @@ def percent_difference(current_price, past_price)
 end
 
 def set_send_flag
-  if $redis.get("lastrun") == nil  
-    $redis.set("lastrun", (Time.now.utc - 86400))
-  elsif Time.parse($redis.get("lastrun")) - (Time.now.utc - 86400) >= 86000 
+  if $redis.get("lastrun") == "true"   
     puts "I'm not gonna write anything because I did less than 24 hours ago"
   elsif $percent_diff >= ENV['ALERT_THRESHOLD'].to_i
     puts 'Boys, Ether prices are changing fast. Up by '+ $percent_diff.to_s + ' in last 24 hours.'
-    $redis.set("lastrun", Time.now.utc)
+    $redis.setex("lastrun", 86400, true)
     $send_flag = true
+    puts $redis.get("lastrun")
   else
     puts 'Ether is stable, boys.' 
   end
