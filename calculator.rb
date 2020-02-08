@@ -2,7 +2,7 @@ require_relative 'ether_prices'
 require_relative 'slack'
 require_relative 'config/initializers/redis.rb'
 
-$percent_diff = get_price_24hr.round(1)
+$percent_diff = get_price_24hr.round(1).abs()
 $price_now = get_price_now
 $send_flag = false 
 
