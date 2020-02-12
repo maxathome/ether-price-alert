@@ -9,7 +9,7 @@ def post_to_slack(percent, current_price)
   request = Net::HTTP::Post.new(uri)
   request.content_type = "application/json"
   request.body = JSON.dump({
-   "text" => ":eggplant: Hey <!channel>! Etherium has moved "+ percent + "% in the last 24 hours! Price is currently at $" + current_price + "! :eggplant:"
+   "text" => ":eggplant: Hey <!channel>! Ethereum has moved "+ percent + "% in the last 24 hours! Price is currently at $" + current_price + "! :eggplant:"
   })
 
   req_options = {
