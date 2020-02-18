@@ -18,7 +18,7 @@ def set_send_flag
         $redis.setex("lastrun", 86400, true)
         $negative_send_flag = true 
         puts 'Aw, fuck. Prices are down by ' + $percent_diff.to_s + '% in last 24 hours. Sell, sell, sell!'
-      elsif $percen_diff > 0
+      elsif $percent_diff > 0
         puts 'Boys, Ether prices are changing fast. Up by '+ $percent_diff.to_s + ' in last 24 hours.'
         $redis.setex("lastrun", 86400, true)
         $positive_send_flag = true
