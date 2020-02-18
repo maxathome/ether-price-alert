@@ -1,0 +1,3 @@
+CYRPTOCOMPARE_API_KEY = '175067d4cd817a045808ecfa765e2b7be7d52a2e9d7c18617cb258f1893006ac'
+GET_PRICE_URL = 'https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD&api_key='
+GET_PRICE_24HR_URL = 'https://min-api.cryptocompare.com/data/v2/histohour?fsym=ETH&tsym=USD&limit=24&apikey='

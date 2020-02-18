@@ -29,7 +29,7 @@ def set_send_flag
 end
 
 def post_if_positive_flag_set
-  if $send_flag == true
+  if $positive_send_flag == true
     post_to_slack_up($percent_diff.to_s, $price_now.to_s)
   end
 end
